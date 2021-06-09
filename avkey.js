@@ -289,8 +289,8 @@ instance.prototype.actions = function(system) {
 				},
 				{
 					type: 'dropdown',
-					id: 'comboforth',
-					label: 'Forth key code',
+					id: 'combofourth',
+					label: 'Fourth key code',
 					default: 1,
 					choices: keycodes,
 					minChoicesForSearch: 113
@@ -342,7 +342,7 @@ instance.prototype.action = function(action) {
 			break;
 
 		case 'combo':
-			cmd = 'AVK|Combo|' + opt.combofirst + ',' + opt.combosecond + ',' + opt.combothird;
+			cmd = 'AVK|Combo|' + opt.combofirst + ',' + opt.combosecond + ',' + opt.combothird + ',' + opt.combofourth;
 			break;
 
 		case 'powerpoint':
