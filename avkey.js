@@ -1,7 +1,7 @@
-var instance_skel = require('../../instance_skel');
-var udp           = require('../../udp');
-var debug;
-var log;
+var instance_skel = require('../../instance_skel')
+var udp = require('../../udp')
+var debug
+var log
 
 var keycodes = [
 	{ id: '0', label: '[NONE]' },
@@ -138,61 +138,61 @@ var powerpointmacros = [
 ]
 
 function instance(system, id, config) {
-	var self = this;
+	var self = this
 
 	// super-constructor
-	instance_skel.apply(this, arguments);
+	instance_skel.apply(this, arguments)
 
-	self.actions(); // export actions
+	self.actions() // export actions
 
-	return self;
+	return self
 }
 
-instance.prototype.init = function() {
-	var self = this;
+instance.prototype.init = function () {
+	var self = this
 
-	debug = self.debug;
-	log = self.log;
+	debug = self.debug
+	log = self.log
 
-	self.status(self.STATUS_UNKNOWN);
+	self.status(self.STATUS_UNKNOWN)
 
 	if (self.config.host !== undefined) {
-		self.udp = new udp(self.config.host, self.config.port);
+		self.udp = new udp(self.config.host, self.config.port)
 
 		self.udp.on('status_change', function (status, message) {
-			self.status(status, message);
-		});
+			self.status(status, message)
+		})
 	}
-};
+}
 
-instance.prototype.updateConfig = function(config) {
-	var self = this;
-	self.config = config;
+instance.prototype.updateConfig = function (config) {
+	var self = this
+	self.config = config
 
 	if (self.udp !== undefined) {
-		self.udp.destroy();
-		delete self.udp;
+		self.udp.destroy()
+		delete self.udp
 	}
 
 	if (self.config.host !== undefined) {
-		self.udp = new udp(self.config.host, self.config.port);
+		self.udp = new udp(self.config.host, self.config.port)
 
 		self.udp.on('status_change', function (status, message) {
-			self.status(status, message);
-		});
+			self.status(status, message)
+		})
 	}
-};
+}
 
 // Return config fields for web config
 instance.prototype.config_fields = function () {
-	var self = this;
+	var self = this
 	return [
 		{
 			type: 'textinput',
 			id: 'host',
 			label: 'Target IP',
 			width: 6,
-			regex: self.REGEX_IP
+			regex: self.REGEX_IP,
 		},
 		{
 			type: 'textinput',
@@ -200,33 +200,34 @@ instance.prototype.config_fields = function () {
 			label: 'Target Port',
 			width: 6,
 			default: 7000,
-			regex: self.REGEX_PORT
+			regex: self.REGEX_PORT,
 		},
 		{
 			type: 'text',
 			id: 'info',
 			label: 'Information',
 			width: 12,
-			value: 'AV-Key is a versatile windowless utility that enables you to remotely control applications that do not offer any native way to control them remotely. Thankfully though, most do allow the triggering of actions via keyboard short keys, this is where AV-KEY steps in, acting as a bridge. AV-KEY listens for commands received via Ethernet and converts them into keystrokes. Now when any program on the receiving computer has keyboard focus, the keystrokes emulated by AV-KEY are received just as if it was typed directly on the keyboard.</br></br><a href="https://www.ifelseware.com/AV-Key" target="_new">Learn more and download a free copy.</a>.'
-		}
+			value:
+				'AV-Key is a versatile windowless utility that enables you to remotely control applications that do not offer any native way to control them remotely. Thankfully though, most do allow the triggering of actions via keyboard short keys, this is where AV-KEY steps in, acting as a bridge. AV-KEY listens for commands received via Ethernet and converts them into keystrokes. Now when any program on the receiving computer has keyboard focus, the keystrokes emulated by AV-KEY are received just as if it was typed directly on the keyboard.</br></br><a href="https://www.ifelseware.com/AV-Key" target="_new">Learn more and download a free copy.</a>.',
+		},
 	]
-};
+}
 
 // When module gets deleted
-instance.prototype.destroy = function() {
-	var self = this;
+instance.prototype.destroy = function () {
+	var self = this
 
 	if (self.udp !== undefined) {
-		self.udp.destroy();
+		self.udp.destroy()
 	}
-	debug("destroy", self.id);
-};
+	debug('destroy', self.id)
+}
 
-instance.prototype.actions = function(system) {
-	var self = this;
+instance.prototype.actions = function (system) {
+	var self = this
 
 	self.system.emit('instance_actions', self.id, {
-		'codedown': {
+		codedown: {
 			label: 'Key Down (Virtual Key Code)',
 			options: [
 				{
@@ -234,11 +235,11 @@ instance.prototype.actions = function(system) {
 					id: 'codedown',
 					label: 'Select key code',
 					default: 2,
-					choices: keycodes
-				}
-			]
+					choices: keycodes,
+				},
+			],
 		},
-		'codeup': {
+		codeup: {
 			label: 'Key Up (Virtual Key Code)',
 			options: [
 				{
@@ -246,21 +247,21 @@ instance.prototype.actions = function(system) {
 					id: 'codeup',
 					label: 'Select key code',
 					default: 2,
-					choices: keycodes
-				}
-			]
+					choices: keycodes,
+				},
+			],
 		},
-		'textblock': {
+		textblock: {
 			label: 'Send Text String',
 			options: [
 				{
 					type: 'textinput',
 					label: 'Type sentence',
 					id: 'block',
-				}
-			]
+				},
+			],
 		},
-		'combo': {
+		combo: {
 			label: 'Send Combination of key codes',
 			options: [
 				{
@@ -269,7 +270,7 @@ instance.prototype.actions = function(system) {
 					label: 'First key code',
 					default: 1,
 					choices: keycodes,
-					minChoicesForSearch: 113
+					minChoicesForSearch: 113,
 				},
 				{
 					type: 'dropdown',
@@ -277,7 +278,7 @@ instance.prototype.actions = function(system) {
 					label: 'Second key code',
 					default: 1,
 					choices: keycodes,
-					minChoicesForSearch: 113
+					minChoicesForSearch: 113,
 				},
 				{
 					type: 'dropdown',
@@ -285,7 +286,7 @@ instance.prototype.actions = function(system) {
 					label: 'Third key code',
 					default: 1,
 					choices: keycodes,
-					minChoicesForSearch: 113
+					minChoicesForSearch: 113,
 				},
 				{
 					type: 'dropdown',
@@ -293,11 +294,11 @@ instance.prototype.actions = function(system) {
 					label: 'Fourth key code',
 					default: 1,
 					choices: keycodes,
-					minChoicesForSearch: 113
-				}
-			]
+					minChoicesForSearch: 113,
+				},
+			],
 		},
-		'powerpoint': {
+		powerpoint: {
 			label: 'PowerPoint Cue',
 			options: [
 				{
@@ -306,57 +307,56 @@ instance.prototype.actions = function(system) {
 					id: 'macro',
 					default: 1,
 					choices: powerpointmacros,
-					minChoicesForSearch: 16
+					minChoicesForSearch: 16,
 				},
 				{
 					type: 'textinput',
 					id: 'slidenumber',
 					label: 'Slide number (GOTO slide only)',
-					default: "",
-					regex: self.REGEX_NUMBER
-				}
-			]
+					default: '',
+					regex: self.REGEX_NUMBER,
+				},
+			],
 		},
+	})
+}
 
-	});
-};
-
-instance.prototype.action = function(action) {
-	var self = this;
-	var id = action.action;
-	var cmd;
-	var opt = action.options;
+instance.prototype.action = function (action) {
+	var self = this
+	var id = action.action
+	var cmd
+	var opt = action.options
 
 	// avplayback default port 7000
 	switch (action.action) {
 		case 'codedown':
-			cmd = 'AVK|CodeDown|' + opt.codedown;
-			break;
+			cmd = 'AVK|CodeDown|' + opt.codedown
+			break
 
 		case 'codeup':
-			cmd = 'AVK|CodeUp|' + opt.codeup;
-			break;
+			cmd = 'AVK|CodeUp|' + opt.codeup
+			break
 
 		case 'textblock':
-			cmd = 'AVK|TextBlock|' + opt.block;
-			break;
+			cmd = 'AVK|TextBlock|' + opt.block
+			break
 
 		case 'combo':
-			cmd = 'AVK|Combo|' + opt.combofirst + ',' + opt.combosecond + ',' + opt.combothird + ',' + opt.combofourth;
-			break;
+			cmd = 'AVK|Combo|' + opt.combofirst + ',' + opt.combosecond + ',' + opt.combothird + ',' + opt.combofourth
+			break
 
 		case 'powerpoint':
-			cmd = 'AVK|PowerPoint|' + opt.macro + ',' + opt.slidenumber;
-			break;
+			cmd = 'AVK|PowerPoint|' + opt.macro + ',' + opt.slidenumber
+			break
 	}
 
 	if (cmd !== undefined) {
 		if (self.udp !== undefined) {
-			debug('sending ',cmd,"to",self.udp.host);
-			self.udp.send(cmd);
+			debug('sending ', cmd, 'to', self.udp.host)
+			self.udp.send(cmd)
 		}
 	}
-};
+}
 
-instance_skel.extendedBy(instance);
-exports = module.exports = instance;
+instance_skel.extendedBy(instance)
+exports = module.exports = instance
