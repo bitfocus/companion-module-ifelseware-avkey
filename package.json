@@ -3,7 +3,7 @@
 	"legacy": [
 		"AV-Key"
 	],
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"api_version": "1.0.0",
 	"description": "AV-Key plugin module for Companion",
 	"keywords": [
