@@ -1,25 +1,32 @@
 {
-  "name": "ifelseware-avkey",
-  "legacy": [
-    "AV-Key"
-  ],
-  "version": "1.0.2",
-  "api_version": "1.0.0",
-  "description": "AV-Key plugin module for Companion",
-  "keywords": [
-    "AV-Key",
-    "Automation",
-    "Remote Control",
-    "Software"
-  ],
-  "manufacturer": "IEW Solutions (aka ifelseWare)",
-  "product": "AV-Key",
-  "shortname": "avkey",
-  "homepage": "https://www.ifelseware.com/",
-  "main": "avkey.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Greg Meisel <greg@ifelseware.com>",
-  "license": "ISC"
+	"name": "ifelseware-avkey",
+	"legacy": [
+		"AV-Key"
+	],
+	"version": "1.0.2",
+	"api_version": "1.0.0",
+	"description": "AV-Key plugin module for Companion",
+	"keywords": [
+		"AV-Key",
+		"Automation",
+		"Remote Control",
+		"Software"
+	],
+	"manufacturer": "IEW Solutions (aka ifelseWare)",
+	"product": "AV-Key",
+	"shortname": "avkey",
+	"homepage": "https://github.com/bitfocus/companion-module-ifelseware-avkey#readme",
+	"main": "avkey.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "Greg Meisel <greg@ifelseware.com>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/bitfocus/companion-module-ifelseware-avkey/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/bitfocus/companion-module-ifelseware-avkey.git"
+	}
 }
