@@ -3,7 +3,7 @@
   "legacy": [
     "AV-Key"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "api_version": "1.0.0",
   "description": "AV-Key plugin module for Companion",
   "keywords": [
@@ -22,5 +22,4 @@
   },
   "author": "Greg Meisel <greg@ifelseware.com>",
   "license": "ISC"
-
 }
